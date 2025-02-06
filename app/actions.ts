@@ -5,6 +5,8 @@ import { createClient } from "@/utils/supabase/server";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
+import { revalidatePath } from "next/cache";
+
 export const signUpAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
   const password = formData.get("password")?.toString();
@@ -132,3 +134,25 @@ export const signOutAction = async () => {
   await supabase.auth.signOut();
   return redirect("/sign-in");
 };
+
+export const submitNewStool =  async (prevState: any, formData: FormData)  => {
+  // フォームデータの取得
+  const date = formData.get("date") as string
+  const time = formData.get("time") as string
+  const bristolScale = Number.parseInt(formData.get("bristolScale") as string)
+  const stoolVolume = Number.parseInt(formData.get("stoolVolume") as string)
+  const stoolColor = Number.parseInt(formData.get("stoolColor") as string)
+
+  // 日付と時刻を組み合わせて1つのDateオブジェクトを作成
+  const [year, month, day] = date.split("-").map(Number)
+  const [hours, minutes] = time.split(":").map(Number)
+  const dateTime = new Date(year, month - 1, day, hours, minutes)
+
+  // ここでデータベースに保存するなどの処理を行う
+  console.log("Submitting new stool:", { dateTime, bristolScale, stoolVolume, stoolColor })
+
+  // 必要に応じてキャッシュを再検証
+  revalidatePath("/")
+
+  return { success: true }
+}
