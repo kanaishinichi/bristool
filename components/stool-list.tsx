@@ -1,12 +1,14 @@
 import { createClient } from '@/utils/supabase/server'
 import StoolItem from './stool-item'
+import { Stool } from '@/types/common'
 
 export default async function StoolList() {
   const supabase = await createClient()
-  const { data: stools, error } = await supabase
-    .from('stools')
-    .select()
-    .order('created_at', { ascending: false })
+  const { data: stools, error }: { data: Stool[] | null; error: any } =
+    await supabase
+      .from('stools')
+      .select()
+      .order('created_at', { ascending: false })
 
   return (
     <>
