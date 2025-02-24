@@ -26,12 +26,18 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import StoolEditSheetContent from './stool-edit-sheet-content'
 import { Stool } from '@/types/common'
 
-export default function StoolEditSheet({ stool }: { stool: Stool | any }) {
+export default function StoolEditSheet({
+  stool,
+  title,
+}: {
+  stool: Stool | null
+  title: string
+}) {
   return (
     <ScrollArea className="h-max">
       <SheetContent className="h-full overflow-y-auto">
         <SheetHeader>
-          <SheetTitle>Stool Edit</SheetTitle>
+          <SheetTitle>{title}</SheetTitle>
           <SheetDescription>Edit or create new record.</SheetDescription>
         </SheetHeader>
         <StoolEditSheetContent stool={stool} />

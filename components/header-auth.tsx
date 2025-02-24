@@ -55,12 +55,12 @@ export default async function AuthButton() {
       <Sheet>
         <SheetTrigger asChild>
           <Button size="sm" variant={'default'}>
-            New Stool
+            New Record
           </Button>
         </SheetTrigger>
-        <StoolEditSheet stool={null} />
+        <StoolEditSheet stool={null} title="New Record" />
       </Sheet>
-      Hey, {user.email}!
+      {user.email}
       <form action={signOutAction}>
         <Button type="submit" variant={'outline'}>
           Sign out

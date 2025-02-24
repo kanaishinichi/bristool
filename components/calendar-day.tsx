@@ -24,7 +24,7 @@ export function CalendarDay({
           <SheetTrigger>
             <CalendarCell stool={stool} />
           </SheetTrigger>
-          <StoolEditSheet stool={stool} />
+          <StoolEditSheet stool={stool} title="Edit Record" />
         </Sheet>
       ))}
     </div>

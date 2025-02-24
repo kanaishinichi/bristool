@@ -126,10 +126,12 @@ export default function StoolEditSheetContent({
           <p className="text-green-600">送信が完了しました！</p>
         )}
       </form>
-      <form action={deleteAction}>
-        <input type="hidden" name="id" value={stool?.id} />
-        <Button type="submit">削除</Button>
-      </form>
+      {stool && (
+        <form action={deleteAction}>
+          <input type="hidden" name="id" value={stool?.id} />
+          <Button type="submit">削除</Button>
+        </form>
+      )}
     </>
   )
 }
