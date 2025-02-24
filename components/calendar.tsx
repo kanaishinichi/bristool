@@ -4,15 +4,11 @@ import React, { useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import StoolCalendarCell from '@/components/stool-calendar-cell'
 import { daysArray } from '@/utils/calendar'
 import { Stool } from '@/types/common'
+import { CalendarDay } from './calendar-day'
 
-// interface CustomCalendarProps {
-//   stools: Stool[] | null
-// }
-
-const CustomCalendar = ({ stools }: { stools: Stool[] }) => {
+const Calendar = ({ stools }: { stools: Stool[] }) => {
   const [currentDate, setCurrentDate] = useState(new Date())
 
   const weekDays = ['日', '月', '火', '水', '木', '金', '土']
@@ -78,19 +74,25 @@ const CustomCalendar = ({ stools }: { stools: Stool[] }) => {
 
             {/* 日付セル */}
             {daysArray(currentDate).map(({ date, isCurrentMonth }) => (
-              <div
+              <CalendarDay
                 key={date.toISOString()}
-                className={`min-h-24 p-1 bg-background relative ${
-                  !isCurrentMonth && 'text-muted-foreground'
-                }`}
-              >
-                <div className="absolute top-1 left-1 text-sm">
-                  {date.getDate()}
-                </div>
-                <div className="pt-6">
-                  <StoolCalendarCell stools={getDayRecords(date) || []} />
-                </div>
-              </div>
+                date={date}
+                isCurrentMonth={isCurrentMonth}
+                stools={getDayRecords(date) || null}
+              />
+              // <div
+              //   key={date.toISOString()}
+              //   className={`min-h-24 p-1 bg-background relative ${
+              //     !isCurrentMonth && 'text-muted-foreground'
+              //   }`}
+              // >
+              //   <div className="absolute top-1 left-1 text-sm">
+              //     {date.getDate()}
+              //   </div>
+              //   <div className="pt-6">
+              //     <StoolCalendarCell stools={getDayRecords(date) || []} />
+              //   </div>
+              // </div>
             ))}
           </div>
         </div>
@@ -118,4 +120,4 @@ const CustomCalendar = ({ stools }: { stools: Stool[] }) => {
   )
 }
 
-export default CustomCalendar
+export default Calendar

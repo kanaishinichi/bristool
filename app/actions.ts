@@ -135,7 +135,7 @@ export const signOutAction = async () => {
   return redirect('/sign-in')
 }
 
-export const submitNewStool = async (prevState: any, formData: FormData) => {
+export const insertStoolAction = async (prevState: any, formData: FormData) => {
   const supabase = await createClient()
   const { data, error } = await supabase.auth.getUser()
   if (error || !data?.user) {
@@ -146,9 +146,9 @@ export const submitNewStool = async (prevState: any, formData: FormData) => {
   // フォームデータの取得
   const date = formData.get('date') as string
   const time = formData.get('time') as string
-  const bristolScale = Number.parseInt(formData.get('bristolScale') as string)
-  const stoolVolume = Number.parseInt(formData.get('stoolVolume') as string)
-  const stoolColor = Number.parseInt(formData.get('stoolColor') as string)
+  const scale = Number.parseInt(formData.get('bristolScale') as string)
+  const volume = Number.parseInt(formData.get('stoolVolume') as string)
+  const color = Number.parseInt(formData.get('stoolColor') as string)
 
   // 日付と時刻を組み合わせて1つのDateオブジェクトを作成
   const [year, month, day] = date.split('-').map(Number)
@@ -156,19 +156,84 @@ export const submitNewStool = async (prevState: any, formData: FormData) => {
   const dateTime = new Date(year, month - 1, day, hours, minutes)
 
   // ここでデータベースに保存するなどの処理を行う
-  console.log('Submitting new stool:', {
+  console.log('Insert new stool:', {
     dateTime,
-    bristolScale,
-    stoolVolume,
-    stoolColor,
+    scale,
+    volume,
+    color,
   })
 
   const res = await supabase.from('stools').insert({
     user_id: userId,
-    scale: bristolScale,
-    volume: stoolVolume,
-    color: stoolColor,
+    scale: scale,
+    volume: volume,
+    color: color,
+    date: dateTime,
   })
+  console.log(res)
+  // 必要に応じてキャッシュを再検証
+  revalidatePath('/')
+
+  return { success: true }
+}
+
+export const updateStoolAction = async (prevState: any, formData: FormData) => {
+  const supabase = await createClient()
+  const { data, error } = await supabase.auth.getUser()
+  if (error || !data?.user) {
+    redirect('/new-stool')
+  }
+  const userId = data?.user.id
+
+  // フォームデータの取得
+  const id = formData.get('id') as string
+  const date = formData.get('date') as string
+  const time = formData.get('time') as string
+  const scale = Number.parseInt(formData.get('bristolScale') as string)
+  const volume = Number.parseInt(formData.get('stoolVolume') as string)
+  const color = Number.parseInt(formData.get('stoolColor') as string)
+
+  // 日付と時刻を組み合わせて1つのDateオブジェクトを作成
+  const [year, month, day] = date.split('-').map(Number)
+  const [hours, minutes] = time.split(':').map(Number)
+  const dateTime = new Date(year, month - 1, day, hours, minutes)
+
+  // ここでデータベースに保存するなどの処理を行う
+  console.log('Update existing stool:', {
+    id,
+    dateTime,
+    scale,
+    volume,
+    color,
+  })
+
+  const res = await supabase
+    .from('stools')
+    .update({
+      user_id: userId,
+      scale: scale,
+      volume: volume,
+      color: color,
+      date: dateTime,
+    })
+    .eq('id', id)
+
+  console.log(res)
+  // 必要に応じてキャッシュを再検証
+  revalidatePath('/')
+
+  return { success: true }
+}
+
+export const deleteStoolAction = async (prevState: any, formData: FormData) => {
+  const supabase = await createClient()
+  const { data, error } = await supabase.auth.getUser()
+  if (error || !data?.user) {
+    redirect('/new-stool')
+  }
+  console.log('Delete existing stool:', formData)
+  const id = formData.get('id')
+  const res = await supabase.from('stools').delete().eq('id', id)
   console.log(res)
   // 必要に応じてキャッシュを再検証
   revalidatePath('/')

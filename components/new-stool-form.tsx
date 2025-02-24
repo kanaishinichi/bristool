@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/popover'
 import { Slider } from '@/components/ui/slider'
 import { Input } from '@/components/ui/input'
-import { submitNewStool } from '@/app/actions'
+import { insertStoolAction } from '@/app/actions'
 import { format } from 'date-fns'
 import { CalendarIcon, Clock } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -37,7 +37,9 @@ export default function NewStoolForm() {
   const [stoolVolume, setStoolVolume] = useState<number>(50)
   const [stoolColor, setStoolColor] = useState<number>(4)
 
-  const [state, formAction] = useActionState(submitNewStool, { success: false })
+  const [state, formAction] = useActionState(insertStoolAction, {
+    success: false,
+  })
 
   // const handleSubmit = (formData: FormData) => {
   //   action(formData)

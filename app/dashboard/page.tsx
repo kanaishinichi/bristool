@@ -1,5 +1,5 @@
 import ControlScore from '@/components/control-score'
-import CustomCalendar from '@/components/custom-calendar' // 新しいインポート
+import Calendar from '@/components/calendar' // 新しいインポート
 import { createClient } from '@/utils/supabase/server'
 
 import { Stool } from '@/types/common'
@@ -53,7 +53,7 @@ export default async function DashboardPage() {
         <ControlScore stools={stools ?? []} />
 
         {/* カスタムカレンダー */}
-        <CustomCalendar stools={stools ?? []} />
+        <Calendar stools={stools ?? []} />
       </div>
     </div>
   )

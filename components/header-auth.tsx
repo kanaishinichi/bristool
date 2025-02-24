@@ -4,6 +4,8 @@ import Link from 'next/link'
 import { Badge } from './ui/badge'
 import { Button } from './ui/button'
 import { createClient } from '@/utils/supabase/server'
+import { Sheet, SheetTrigger } from '@/components/ui/sheet'
+import StoolEditSheet from './stool-edit-sheet'
 
 export default async function AuthButton() {
   const supabase = await createClient()
@@ -50,9 +52,14 @@ export default async function AuthButton() {
   }
   return user ? (
     <div className="flex items-center gap-4">
-      <Button asChild size="sm" variant={'default'}>
-        <Link href="/new-stool">New Stool</Link>
-      </Button>
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button size="sm" variant={'default'}>
+            New Stool
+          </Button>
+        </SheetTrigger>
+        <StoolEditSheet stool={null} />
+      </Sheet>
       Hey, {user.email}!
       <form action={signOutAction}>
         <Button type="submit" variant={'outline'}>
