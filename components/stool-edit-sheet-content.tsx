@@ -131,7 +131,7 @@ export default function StoolEditSheetContent({
       {stool && (
         <form action={deleteAction} className="space-y-2">
           <input type="hidden" name="id" value={stool?.id} />
-          <Button type="submit" className="w-full">
+          <Button variant="destructive" type="submit" className="w-full">
             削除
           </Button>
         </form>

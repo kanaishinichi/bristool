@@ -1,12 +1,17 @@
 'use client'
 
-import React, { useState } from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
+import { useState } from 'react'
+
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { daysArray } from '@/utils/calendar'
 import { Stool } from '@/types/common'
+
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import { Sheet, SheetTrigger } from '@/components/ui/sheet'
+
 import { CalendarDay } from './calendar-day'
+import StoolEditSheet from './stool-edit-sheet'
 
 const Calendar = ({ stools }: { stools: Stool[] }) => {
   const [currentDate, setCurrentDate] = useState(new Date())
@@ -80,19 +85,6 @@ const Calendar = ({ stools }: { stools: Stool[] }) => {
                 isCurrentMonth={isCurrentMonth}
                 stools={getDayRecords(date) || null}
               />
-              // <div
-              //   key={date.toISOString()}
-              //   className={`min-h-24 p-1 bg-background relative ${
-              //     !isCurrentMonth && 'text-muted-foreground'
-              //   }`}
-              // >
-              //   <div className="absolute top-1 left-1 text-sm">
-              //     {date.getDate()}
-              //   </div>
-              //   <div className="pt-6">
-              //     <StoolCalendarCell stools={getDayRecords(date) || []} />
-              //   </div>
-              // </div>
             ))}
           </div>
         </div>
