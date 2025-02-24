@@ -120,16 +120,20 @@ export default function StoolEditSheetContent({
         <StoolColorSelect value={color} onChange={setStoolColor} />
         <input type="hidden" name="stoolColor" value={color} />
 
-        <Button type="submit">送信</Button>
+        <Button type="submit" className="w-full">
+          保存
+        </Button>
 
         {submitState.success && (
-          <p className="text-green-600">送信が完了しました！</p>
+          <p className="text-green-600">保存が完了しました！</p>
         )}
       </form>
       {stool && (
-        <form action={deleteAction}>
+        <form action={deleteAction} className="space-y-2">
           <input type="hidden" name="id" value={stool?.id} />
-          <Button type="submit">削除</Button>
+          <Button type="submit" className="w-full">
+            削除
+          </Button>
         </form>
       )}
     </>

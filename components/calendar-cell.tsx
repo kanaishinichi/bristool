@@ -1,14 +1,17 @@
 import { Stool } from '@/types/common'
 import React from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { format } from 'date-fns'
 
 export function CalendarCell({ stool }: { stool: Stool }) {
   return (
     <Card className="my-1">
       <CardHeader>
-        <CardTitle>Date</CardTitle>
+        <CardTitle>{format(stool.date, 'HH:mm')}</CardTitle>
       </CardHeader>
-      <CardContent>{stool.scale}</CardContent>
+      <CardContent>
+        S:{stool.scale} V:{stool.volume} C:{stool.color}
+      </CardContent>
     </Card>
   )
 }
