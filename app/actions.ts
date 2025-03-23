@@ -163,8 +163,8 @@ export const insertStoolAction = async (prevState: any, formData: FormData) => {
     color,
   })
 
-  const res = await supabase.from('stools').insert({
-    user_id: userId,
+  const res = await supabase.from('stool_records').insert({
+    id: userId,
     scale: scale,
     volume: volume,
     color: color,
@@ -208,9 +208,9 @@ export const updateStoolAction = async (prevState: any, formData: FormData) => {
   })
 
   const res = await supabase
-    .from('stools')
+    .from('stool_records')
     .update({
-      user_id: userId,
+      id: userId,
       scale: scale,
       volume: volume,
       color: color,
@@ -233,7 +233,7 @@ export const deleteStoolAction = async (prevState: any, formData: FormData) => {
   }
   console.log('Delete existing stool:', formData)
   const id = formData.get('id')
-  const res = await supabase.from('stools').delete().eq('id', id)
+  const res = await supabase.from('stool_records').delete().eq('id', id)
   console.log(res)
   // 必要に応じてキャッシュを再検証
   revalidatePath('/')

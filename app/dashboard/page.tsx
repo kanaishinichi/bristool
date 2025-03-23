@@ -8,7 +8,7 @@ export default async function DashboardPage() {
   const supabase = await createClient()
   const { data: stools, error }: { data: Stool[] | null; error: any } =
     await supabase
-      .from('stools')
+      .from('stool_records')
       .select()
       .order('created_at', { ascending: false })
 
