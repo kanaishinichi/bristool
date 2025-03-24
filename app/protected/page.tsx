@@ -16,12 +16,19 @@ export default async function ProtectedPage() {
     return redirect('/sign-in')
   }
 
+  const userId = user.id
+
   let { data: users, error } = await supabase
     .from('user_accounts')
-    .select('id')
+    .select(
+      `
+      id,
+      users:user_accounts_id_fkey (
+        display_name
+      )
+    `,
+    )
     .eq('guardian_id', user.id)
-
-  console.log(users)
 
   return (
     <div className="flex-1 w-full flex flex-col gap-12">
