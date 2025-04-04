@@ -25,11 +25,11 @@ import {
 import BristolScaleSelect from './BristolScaleSelect'
 import StoolColorSelect from './StoolColorSelect'
 
-export default function StoolEditSheetContent({ stool }: { stool: Stool }) {
-  const defaultDate = new Date(stool.date)
-  const defaultScale = stool.scale
-  const defaultVolume = stool.volume
-  const defaultColor = stool.color
+export default function StoolEditSheetContent({ stool }: { stool?: Stool }) {
+  const defaultDate = stool ? new Date(stool.date) : new Date()
+  const defaultScale = stool?.scale ?? 4
+  const defaultVolume = stool?.volume ?? 50
+  const defaultColor = stool?.color ?? 4
 
   const [date, setDate] = useState<Date>(defaultDate)
   const [time, setTime] = useState<string>(format(defaultDate, 'HH:mm'))

@@ -4,7 +4,7 @@ type Stool = Tables<'stool_records'>
 
 import { CalendarCell } from './CalendarCell'
 import { Sheet, SheetTrigger } from '@/components/ui/sheet'
-import StoolEditSheet from './edit-sheet/StoolEditSheet'
+import StoolEditSheet from '@/components/features/edit-sheet/StoolEditSheet'
 
 export function CalendarDay({
   date,

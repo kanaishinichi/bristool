@@ -5,7 +5,7 @@ import { Badge } from './ui/badge'
 import { Button } from './ui/button'
 import { createClient } from '@/utils/supabase/server'
 import { Sheet, SheetTrigger } from '@/components/ui/sheet'
-import StoolEditSheet from './stool-edit-sheet'
+import StoolEditSheet from '@/components/features/edit-sheet/StoolEditSheet'
 
 export default async function AuthButton() {
   const supabase = await createClient()
@@ -58,7 +58,7 @@ export default async function AuthButton() {
             New Record
           </Button>
         </SheetTrigger>
-        <StoolEditSheet stool={null} title="New Record" />
+        <StoolEditSheet title="New Record" />
       </Sheet>
       {user.email}
       <form action={signOutAction}>

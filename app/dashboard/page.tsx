@@ -1,7 +1,7 @@
 import { createClient } from '@/utils/supabase/server'
 import { Tables } from '@/types/supabase'
 
-import Calendar from '@/components/calendar'
+import Calendar from '@/components/features/dashboard/calendar/Calendar'
 import ControlScore from '@/components/features/dashboard/ControlScore'
 import { getDependentsByGuardianId, getStoolRecordsByUserId } from '@/lib/data'
 import DependentUserSelector from '@/components/features/dashboard/DependentUserSelector'

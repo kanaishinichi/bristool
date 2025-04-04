@@ -4,9 +4,9 @@ import { createClient } from '@/utils/supabase/server'
 import { InfoIcon } from 'lucide-react'
 import { redirect } from 'next/navigation'
 
-import StoolList from '@/components/stool-list'
+// import StoolList from '@/components/stool-list'
 import { getDependentsByGuardianId } from '@/lib/data'
-import DependentSelector from '@/components/dependent-selector'
+// import DependentSelector from '@/components/dependent-selector'
 import { User } from '@supabase/supabase-js'
 
 export default async function ProtectedPage() {
@@ -41,7 +41,7 @@ export default async function ProtectedPage() {
       </div>
       <div className="flex flex-col gap-2 items-start">
         {/* <DependentSelector guardianId={userId} /> */}
-        <StoolList />
+        {/* <StoolList /> */}
         <h2 className="font-bold text-2xl mb-4">Your user details</h2>
         <pre className="text-xs font-mono p-3 rounded border max-h-32 overflow-auto">
           {JSON.stringify(user, null, 2)}

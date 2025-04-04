@@ -15,7 +15,7 @@ export default function StoolEditSheet({
   stool,
   title,
 }: {
-  stool: Stool | null
+  stool?: Stool
   title: string
 }) {
   return (
@@ -23,7 +23,9 @@ export default function StoolEditSheet({
       <SheetContent className="h-full overflow-y-auto">
         <SheetHeader>
           <SheetTitle>{title}</SheetTitle>
-          <SheetDescription>Edit or create new record.</SheetDescription>
+          {/* <SheetDescription>
+            {stool ? 'Edit Record' : 'Create new record'}
+          </SheetDescription> */}
         </SheetHeader>
         <StoolEditSheetContent stool={stool} />
       </SheetContent>

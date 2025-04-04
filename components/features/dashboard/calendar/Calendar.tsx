@@ -9,10 +9,10 @@ type Stool = Tables<'stool_records'>
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Sheet, SheetTrigger } from '@/components/ui/sheet'
+// import { Sheet, SheetTrigger } from '@/components/ui/sheet'
 
 import { CalendarDay } from './CalendarDay'
-import StoolEditSheet from './edit-sheet/StoolEditSheet'
+// import StoolEditSheet from './edit-sheet/StoolEditSheet'
 
 const Calendar = ({ stools }: { stools: Stool[] }) => {
   const [currentDate, setCurrentDate] = useState(new Date())
