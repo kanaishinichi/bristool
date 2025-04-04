@@ -23,7 +23,7 @@ export default async function DashboardPage({
     return <div>ログインが必要です</div>
   }
 
-  const guardiansResult = await getDependentsByGuardianId(user?.id)
+  const guardiansResult = await getDependentsByGuardianId(user.id)
   const guardians = guardiansResult?.data
   const guardiansError = guardiansResult?.error
 
@@ -31,27 +31,18 @@ export default async function DashboardPage({
     console.error('Error fetching guardians:', guardiansError)
   }
 
-  const guardianOptions = guardians?.map((guardian) => ({
-    id: guardian.id,
-    name: guardian.detail.display_name ?? 'Unknown',
-  }))
+  const guardianOptions = [
+    {
+      id: user.id,
+      name: 'My Records',
+    },
+    ...(guardians?.map((guardian) => ({
+      id: guardian.id,
+      name: guardian.detail.display_name ?? 'Unknown',
+    })) || []),
+  ]
 
-  const selectedUserId = (await searchParams).selectedUserId || user?.id
-
-  let selectedUserDetails = null
-  if (selectedUserId) {
-    const { data: userData, error: userError } = await supabase
-      .from('user_accounts')
-      .select()
-      .eq('id', selectedUserId)
-      .single()
-
-    if (userError) {
-      console.error('Error fetching user details:', userError)
-    } else {
-      selectedUserDetails = userData
-    }
-  }
+  const selectedUserId = (await searchParams).selectedUserId || user.id
 
   const { stools, error: stoolsError } =
     await getStoolRecordsByUserId(selectedUserId)
@@ -64,7 +55,7 @@ export default async function DashboardPage({
     <div className="container mx-auto p-6 space-y-6">
       <h1 className="text-3xl font-bold">健康管理ダッシュボード</h1>
 
-      {guardianOptions && (
+      {guardianOptions.length > 1 && (
         <DependentUserSelector
           userOptions={guardianOptions}
           selectedUserId={selectedUserId}

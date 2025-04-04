@@ -1,7 +1,7 @@
 'use client'
 
-import { useState, useEffect } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
+import { createClient } from '@/utils/supabase/client'
 import {
   Select,
   SelectContent,
@@ -24,12 +24,21 @@ export default function DependentUserSelector({
 }) {
   const router = useRouter()
   const pathname = usePathname()
+  const supabase = createClient()
+  let currentUserId: string | undefined
+  supabase.auth.getUser().then((res) => {
+    currentUserId = res.data.user?.id
+  })
 
   // ユーザー選択時の処理
   const handleUserSelect = (id: string) => {
     // URLクエリパラメータを更新してページを再読み込み
     const params = new URLSearchParams()
-    params.set('selectedUserId', id)
+    if (id === currentUserId) {
+      params.delete('selectedUserId')
+    } else {
+      params.set('selectedUserId', id)
+    }
     router.push(`${pathname}?${params.toString()}`)
   }
 
