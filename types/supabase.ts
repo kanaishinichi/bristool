@@ -177,31 +177,31 @@ export type Database = {
       }
       stool_records: {
         Row: {
-          color: number | null
+          color: number
           created_at: string
           date: string
           id: string
-          scale: number | null
+          scale: number
           user_id: string
-          volume: number | null
+          volume: number
         }
         Insert: {
-          color?: number | null
+          color: number
           created_at?: string
           date?: string
           id?: string
-          scale?: number | null
+          scale: number
           user_id: string
-          volume?: number | null
+          volume: number
         }
         Update: {
-          color?: number | null
+          color?: number
           created_at?: string
           date?: string
           id?: string
-          scale?: number | null
+          scale?: number
           user_id?: string
-          volume?: number | null
+          volume?: number
         }
         Relationships: [
           {

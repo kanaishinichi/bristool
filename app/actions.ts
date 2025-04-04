@@ -164,7 +164,7 @@ export const insertStoolAction = async (prevState: any, formData: FormData) => {
   })
 
   const res = await supabase.from('stool_records').insert({
-    id: userId,
+    user_id: userId,
     scale: scale,
     volume: volume,
     color: color,
@@ -199,7 +199,7 @@ export const updateStoolAction = async (prevState: any, formData: FormData) => {
   const dateTime = new Date(year, month - 1, day, hours, minutes)
 
   // ここでデータベースに保存するなどの処理を行う
-  console.log('Update existing stool:', {
+  console.log('Updating existing stool:', {
     id,
     dateTime,
     scale,
@@ -210,13 +210,14 @@ export const updateStoolAction = async (prevState: any, formData: FormData) => {
   const res = await supabase
     .from('stool_records')
     .update({
-      id: userId,
+      // user_id: userId,
       scale: scale,
       volume: volume,
       color: color,
       date: dateTime,
     })
     .eq('id', id)
+    .select()
 
   console.log(res)
   // 必要に応じてキャッシュを再検証
