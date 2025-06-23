@@ -60,26 +60,118 @@ Bristoolは、ブリストルスケールを使用して排便記録を管理す
 - 各記録の「削除」ボタンをクリック
 - 確認なしで即座に削除（要改善）
 
-### 3. ナビゲーション
+### 3. ユーザーアカウント管理
 
-#### 3.1 ヘッダーナビゲーション
+#### 3.1 ユーザーアカウントの種類
+システムでは以下の5種類のユーザーアカウントを定義しています：
+
+1. **admin** - 管理者
+   - システム全体の管理権限を持つ
+   - `admin_accounts`テーブルで管理
+
+2. **guardian_user** - 保護者ユーザー
+   - 他のユーザー（子供など）を管理できる
+   - `guardian_accounts`テーブルで管理
+   - **実装済み**：ダッシュボードで管理下のユーザーを切り替え可能
+
+3. **user** - 一般ユーザー
+   - 基本的な記録機能を使用
+   - `user_accounts`テーブルで管理
+   - `guardian_id`フィールドで保護者との関係を定義
+
+4. **medical_institution** - 医療機関
+   - 医療機関アカウント
+   - `medical_institution_accounts`テーブルで管理
+   - `institution_name`フィールドを持つ
+
+5. **medical_staff** - 医療スタッフ
+   - 医療機関に所属するスタッフ
+   - `medical_stafff_accounts`テーブルで管理
+   - 医療機関との関連付けが可能
+
+#### 3.2 現在の実装状況
+**実装済み機能：**
+- 保護者-ユーザー関係：保護者が複数のユーザーを管理
+- ダッシュボードでのユーザー選択機能
+- ユーザー間の関係性管理
+
+**未実装機能：**
+- 医療機関・医療スタッフ向けの機能
+- アクセス許可システム（`access_permissions`テーブルは定義済み）
+- 管理者向けの管理画面
+
+### 4. ナビゲーション
+
+#### 4.1 ヘッダーナビゲーション
 - ロゴ（ホームへのリンク）
 - 認証状態に応じた表示：
   - 未認証時：「Sign in」リンク
   - 認証時：ユーザーメール表示、「Sign out」ボタン
 
-#### 3.2 主要ページ
+#### 4.2 主要ページ
 - `/` - ランディングページ
 - `/sign-in` - サインインページ
 - `/sign-up` - サインアップページ
 - `/forgot-password` - パスワードリセットページ
 - `/protected` - 記録一覧ページ（認証必須）
+- `/dashboard` - ダッシュボードページ（ユーザー選択機能付き）
 - `/new-stool` - 新規記録作成ページ
 - `/protected/reset-password` - パスワード再設定ページ
 
 ## 技術仕様
 
 ### データベース構造
+
+#### users テーブル（メインユーザーテーブル）
+| カラム名 | 型 | 説明 |
+|---------|-----|------|
+| id | UUID | 主キー |
+| email | VARCHAR | メールアドレス |
+| display_name | VARCHAR | 表示名 |
+| avatar_url | VARCHAR | アバター画像URL |
+| user_type | ENUM | ユーザータイプ（admin/guardian_user/user/medical_institution/medical_staff） |
+| created_at | TIMESTAMP | レコード作成日時 |
+
+#### admin_accounts テーブル
+| カラム名 | 型 | 説明 |
+|---------|-----|------|
+| id | UUID | 主キー（usersテーブルを参照） |
+| created_at | TIMESTAMP | レコード作成日時 |
+
+#### guardian_accounts テーブル
+| カラム名 | 型 | 説明 |
+|---------|-----|------|
+| id | UUID | 主キー（usersテーブルを参照） |
+| created_at | TIMESTAMP | レコード作成日時 |
+
+#### user_accounts テーブル
+| カラム名 | 型 | 説明 |
+|---------|-----|------|
+| id | UUID | 主キー（usersテーブルを参照） |
+| guardian_id | UUID | 保護者ID（guardian_accountsを参照） |
+| created_at | TIMESTAMP | レコード作成日時 |
+
+#### medical_institution_accounts テーブル
+| カラム名 | 型 | 説明 |
+|---------|-----|------|
+| id | UUID | 主キー（usersテーブルを参照） |
+| institution_name | VARCHAR | 医療機関名 |
+| created_at | TIMESTAMP | レコード作成日時 |
+
+#### medical_stafff_accounts テーブル
+| カラム名 | 型 | 説明 |
+|---------|-----|------|
+| id | UUID | 主キー（usersテーブルを参照） |
+| medical_institution_id | UUID | 所属医療機関ID |
+| created_at | TIMESTAMP | レコード作成日時 |
+
+#### access_permissions テーブル
+| カラム名 | 型 | 説明 |
+|---------|-----|------|
+| id | UUID | 主キー |
+| user_id | UUID | ユーザーID |
+| medical_institution_id | UUID | 医療機関ID |
+| created_at | TIMESTAMP | レコード作成日時 |
 
 #### stool_records テーブル
 | カラム名 | 型 | 説明 |
