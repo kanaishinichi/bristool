@@ -58,7 +58,6 @@ bristool/
 │   ├── (auth-pages)/      # 認証ページ群
 │   ├── dashboard/         # メインダッシュボード
 │   ├── new-stool/         # 新規記録ページ
-│   ├── protected/         # デバッグページ
 │   └── actions.ts         # Server Actions
 ├── components/            # Reactコンポーネント
 │   ├── ui/               # shadcn/ui基本コンポーネント
