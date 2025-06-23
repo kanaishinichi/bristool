@@ -1,4 +1,7 @@
 {
+  "name": "bristool",
+  "description": "ブリストルスケール記録アプリ - 便通の記録と管理を行うWebアプリケーション",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",

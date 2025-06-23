@@ -12,7 +12,7 @@ type Stool = Tables<'stool_records'>
 export default async function DashboardPage({
   searchParams,
 }: {
-  searchParams: { selectedUserId?: string }
+  searchParams: Promise<{ selectedUserId?: string }>
 }) {
   const supabase = await createClient()
   const {

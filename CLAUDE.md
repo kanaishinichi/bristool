@@ -37,7 +37,7 @@ This is a **Bristol Stool Chart tracking application** built with Next.js App Ro
 - `/app` - Next.js App Router pages and server actions
   - `(auth-pages)` - Authentication flows (sign-in, sign-up, forgot-password)
   - `actions.ts` - All server actions for auth and CRUD operations
-  - `protected` - Routes requiring authentication
+  - `dashboard`, `new-stool`, `stools` - Routes requiring authentication
 - `/components` - React components
   - `ui/` - shadcn/ui base components
   - Bristol scale and stool tracking components
